@@ -25,19 +25,19 @@
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" class="text-center" width="50px">#</th>
                                 <th scope="col">Ganjil</th>
                                 <th scope="col">Genap</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row" class="text-center">1</th>
                                 <td>Mark</td>
                                 <td>Otto</td>
                             </tr>
                             <tr>
-                                <th scope="row">2</th>
+                                <th scope="row" class="text-center">2</th>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                             </tr>

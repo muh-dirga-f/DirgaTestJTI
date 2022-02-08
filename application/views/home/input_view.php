@@ -24,7 +24,7 @@
 
                 <label for="nomorhp" class="form-label">No Handphone</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="nomorhp" aria-describedby="basic-addon3">
+                    <input type="number" class="form-control" id="nomorhp" aria-describedby="basic-addon3">
                 </div>
 
                 <label for="provider" class="form-label">Provider</label>
