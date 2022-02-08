@@ -18,28 +18,30 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                Data No Handphone
+                <h4 class="text-center">Data No Handphone</h4>
             </div>
             <div class="card-body">
 
-                <label for="nomorhp" class="form-label">No Handphone</label>
-                <div class="input-group mb-3">
-                    <input type="number" class="form-control" id="nomorhp" aria-describedby="basic-addon3">
-                </div>
-
-                <label for="provider" class="form-label">Provider</label>
-                <div class="input-group mb-3">
-                    <select class="form-select" aria-label="Default select example">
-                        <option disabled selected>Silahkan pilih provider</option>
-                        <option value="telkom">Telkom</option>
-                        <option value="xl">XL</option>
-                        <option value="tri">Tri</option>
-                        <option value="indosat">Indosat</option>
-                        <option value="smartfren">Smartfren</option>
-                    </select>
-                </div>
-                <a href="#" class="btn btn-success">Save</a>
-                <a href="#" class="btn btn-primary">Auto</a>
+                <form action="<?php echo base_url(); ?>/api/kontak" method="post">
+                    <label for="nomorhp" class="form-label">No Handphone</label>
+                    <div class="input-group mb-3">
+                        <input type="number" name="nomor_hp" class="form-control" id="nomorhp" aria-describedby="basic-addon3">
+                    </div>
+    
+                    <label for="provider" class="form-label">Provider</label>
+                    <div class="input-group mb-3">
+                        <select name="provider" class="form-select" aria-label="Silahkan pilih provider">
+                            <option disabled selected>Silahkan pilih provider</option>
+                            <option value="telkom">Telkom</option>
+                            <option value="xl">XL</option>
+                            <option value="tri">Tri</option>
+                            <option value="indosat">Indosat</option>
+                            <option value="smartfren">Smartfren</option>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Save" />
+                    <input type="button" class="btn btn-primary" value="Auto" />
+                </form>
             </div>
         </div>
     </div>
