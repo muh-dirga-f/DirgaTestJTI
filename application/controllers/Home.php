@@ -15,7 +15,6 @@ class Home extends CI_Controller
 
     public function output()
     {
-        $this->load->library('encryption');
         $this->load->view('home/output_view');
     }
 

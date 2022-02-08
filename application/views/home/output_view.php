@@ -8,6 +8,9 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/message.css">
 
     <title>Output</title>
 </head>
@@ -38,6 +41,7 @@
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
+                                        <tbody id="tbody-ganjil"></tbody>
                                         <tfoot>
                                             <tr>
                                                 <th scope="col" class="text-center" width="50px">#</th>
@@ -67,26 +71,15 @@
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tbody-genap"></tbody>
+                                        <tfoot>
                                             <tr>
-                                                <th scope="row" class="text-center">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-warning">Edit</a>
-                                                    <a href="#" class="btn btn-danger">Delete</a>
-                                                </td>
+                                                <th scope="col" class="text-center" width="50px">#</th>
+                                                <th scope="col">Nomor Handphone</th>
+                                                <th scope="col">Provider</th>
+                                                <th scope="col">Aksi</th>
                                             </tr>
-                                            <tr>
-                                                <th scope="row" class="text-center">2</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-warning">Edit</a>
-                                                    <a href="#" class="btn btn-danger">Delete</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -97,14 +90,59 @@
         </div>
     </div>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/message.css">
+    <!-- Modal -->
+    <div class="modal fade" id="editKontak" tabindex="-1" aria-labelledby="editKontakLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editKontakLabel">Edit Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-edit">
+                        <label for="id_kontak" class="form-label">Id</label>
+                        <div class="input-group mb-3">
+                            <input type="number" name="id_kontak" class="form-control" id="id_kontak" aria-describedby="basic-addon3" readonly>
+                        </div>
+
+                        <label for="nomorhp" class="form-label">No Handphone</label>
+                        <div class="input-group mb-3">
+                            <input type="number" name="nomor_hp" class="form-control" id="nomor_hp" aria-describedby="basic-addon3">
+                        </div>
+
+                        <label for="provider" class="form-label">Provider</label>
+                        <div class="input-group mb-3">
+                            <select name="provider" class="form-select" aria-label="Silahkan pilih provider">
+                                <option disabled selected>Silahkan pilih provider</option>
+                                <option value="telkom">Telkom</option>
+                                <option value="xl">XL</option>
+                                <option value="tri">Tri</option>
+                                <option value="indosat">Indosat</option>
+                                <option value="smartfren">Smartfren</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="update" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="<?php echo base_url() ?>public/js/message.js"></script>
     <script src="<?php echo base_url() ?>public/js/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>public/websocket/fancywebsocket.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        //inisialisasi edit kontak modal
+        var editKontakModal = new bootstrap.Modal(document.getElementById('editKontak'));
+
         //script datatables
         $(document).ready(function() {
             let tbl_ganjil = $('#table-ganjil').DataTable({
@@ -134,8 +172,8 @@
                         "sClass": "text-center",
                         "orderable": false,
                         "mRender": function(data) {
-                            return '<a href="javascript:btnEdit(' + data + ');" class="badge bg-warning text-decoration-none"><i class="fa fa-edit fa-fw"></i> Edit</a> \n\
-                            <a href="javascript:hapus(' + data + ');" class="badge bg-danger text-decoration-none"><i class="fa fa-trash fa-fw"></i> Delete</a>';
+                            return '<a href="#" data-id="' + data + '" class="btnEdit badge bg-warning text-decoration-none"><i class="fa fa-edit fa-fw"></i> Edit</a> \n\
+                            <a href="#"  data-id="' + data + '" class="btnHapus badge bg-danger text-decoration-none"><i class="fa fa-trash fa-fw"></i> Delete</a>';
                         }
                     }
                 ],
@@ -176,8 +214,8 @@
                         "sClass": "text-center",
                         "orderable": false,
                         "mRender": function(data) {
-                            return '<a href="javascript:btnEdit(' + data + ');" class="badge bg-warning text-decoration-none"><i class="fa fa-edit fa-fw"></i> Edit</a> \n\
-                            <a href="javascript:hapus(' + data + ');" class="badge bg-danger text-decoration-none"><i class="fa fa-trash fa-fw"></i> Delete</a>';
+                            return '<a href="#" data-id="' + data + '" class="btnEdit badge bg-warning text-decoration-none"><i class="fa fa-edit fa-fw"></i> Edit</a> \n\
+                            <a href="#" data-id="' + data + '" class="btnHapus badge bg-danger text-decoration-none"><i class="fa fa-trash fa-fw"></i> Delete</a>';
                         }
                     }
                 ],
@@ -190,36 +228,152 @@
                     cell.innerHTML = i + 1;
                 });
             }).draw();
-        });
-        </script>
-        <script>
-        //script web-socket
-        var Server;
 
-        Server = new FancyWebSocket('ws://127.0.0.1:9300');
-
-        //tangkap apakah ada action dr client manapun
-        Server.bind('message', function(payload) {
-            switch (payload) {
-                case 'tobingmsg':
-                    dhtmlx.message({
-                        'text': "From other at " + new Date().toLocaleString(),
-                        'expire': -1
-                    });
-                    break;
-                case 'tobingerror':
-                    dhtmlx.message({
-                        'text': "From other at " + new Date().toLocaleString(),
-                        'expire': -1,
-                        'type': 'error',
-                    });
-                    break;
+            function tableUpdate() {
+                tbl_ganjil.ajax.reload();
+                tbl_genap.ajax.reload();
             }
-        });
 
-        Server.connect();
+            $('#tbody-ganjil').on('click', '.btnEdit', function() {
+                console.log($(this).data('id'));
+                let id = $(this).data('id');
+                $.ajax({
+                    url: '<?php echo base_url(); ?>/api/kontak_find/id/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log(result);
+                        $('#id_kontak').val(result.data[0].id_kontak);
+                        $('#nomor_hp').val(result.data[0].nomor_hp);
+                        $('select[name=provider] option[value="' + result.data[0].provider + '"]').attr('selected', 'selected');
+                        editKontakModal.show();
+                        console.log()
+                    }
+                });
+            });
+
+            $('#tbody-genap').on('click', '.btnEdit', function() {
+                console.log($(this).data('id'));
+                let id = $(this).data('id');
+                $.ajax({
+                    url: '<?php echo base_url(); ?>/api/kontak_find/id/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log(result);
+                        $('#id_kontak').val(result.data[0].id_kontak);
+                        $('#nomor_hp').val(result.data[0].nomor_hp);
+                        $('select[name=provider] option[value="' + result.data[0].provider + '"]').attr('selected', 'selected');
+                        editKontakModal.show();
+                        console.log()
+                    }
+                });
+            });
+
+            $('#tbody-ganjil').on('click', '.btnHapus', function() {
+                let id = $(this).data('id');
+                swal({
+                        title: "Apa kamu yakin?",
+                        text: "Sekali menghapus, kamu tidak dapat mengembalikan data tersebut!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: '<?php echo base_url(); ?>/api/kontak_delete',
+                                type: 'POST',
+                                data: {
+                                    'id_kontak': id
+                                },
+                                dataType: 'json',
+                                success: function(result) {
+                                    swal("Berhasil!", "Data telah dihapus", "success");
+                                    tableUpdate();
+                                }
+                            });
+                        } else {
+                            swal("Aksi dibatalkan!");
+                        }
+                    });
+            });
+
+            $('#tbody-genap').on('click', '.btnHapus', function() {
+                let id = $(this).data('id');
+                swal({
+                        title: "Apa kamu yakin?",
+                        text: "Sekali menghapus, kamu tidak dapat mengembalikan data tersebut!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: '<?php echo base_url(); ?>/api/kontak_delete',
+                                type: 'POST',
+                                data: {
+                                    'id_kontak': id
+                                },
+                                dataType: 'json',
+                                success: function(result) {
+                                    swal("Berhasil!", "Data telah dihapus", "success");
+                                    tableUpdate();
+                                }
+                            });
+                        } else {
+                            swal("Aksi dibatalkan!");
+                        }
+                    });
+            });
+
+            //tombol update
+            $('#update').on('click', function() {
+                let form = $('#form-edit')[0];
+                $.ajax({
+                    url: '<?php echo base_url(); ?>/api/kontak_update',
+                    type: 'POST',
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    success: function(result) {
+                        console.log(result);
+                        swal('Berhasil', result.message, 'success');
+                        tableUpdate();
+                        editKontakModal.hide();
+                    }
+                });
+            });
+
+            //script websocket
+            var Server;
+
+            Server = new FancyWebSocket('ws://127.0.0.1:9300');
+
+            //tangkap apakah ada action dr client manapun
+            Server.bind('message', function(payload) {
+                switch (payload) {
+                    case 'notif_success':
+                        dhtmlx.message({
+                            'text': "Data berhasil ditambahkan " + new Date().toLocaleString(),
+                            'expire': 5000
+                        });
+                        tableUpdate();
+                        break;
+                    case 'notif_error':
+                        dhtmlx.message({
+                            'text': "Data gagal ditambahkan " + new Date().toLocaleString(),
+                            'expire': -1,
+                            'type': 'error',
+                        });
+                        break;
+                }
+            });
+
+            Server.connect();
+        });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>
