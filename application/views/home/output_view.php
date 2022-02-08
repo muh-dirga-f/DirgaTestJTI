@@ -234,6 +234,7 @@
                 tbl_genap.ajax.reload();
             }
 
+            //fungsi button edit
             $('#tbody-ganjil').on('click', '.btnEdit', function() {
                 console.log($(this).data('id'));
                 let id = $(this).data('id');
@@ -270,6 +271,7 @@
                 });
             });
 
+            //fungsi button hapus
             $('#tbody-ganjil').on('click', '.btnHapus', function() {
                 let id = $(this).data('id');
                 swal({
@@ -351,7 +353,7 @@
 
             Server = new FancyWebSocket('ws://127.0.0.1:9300');
 
-            //tangkap apakah ada action dr client manapun
+            //tangkap apakah ada action dr form input
             Server.bind('message', function(payload) {
                 switch (payload) {
                     case 'notif_success':
@@ -364,9 +366,10 @@
                     case 'notif_error':
                         dhtmlx.message({
                             'text': "Data gagal ditambahkan " + new Date().toLocaleString(),
-                            'expire': -1,
+                            'expire': 5000,
                             'type': 'error',
                         });
+                        tableUpdate();
                         break;
                 }
             });

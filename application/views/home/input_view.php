@@ -63,23 +63,30 @@
         //fungsi tombol save
         $('#btnSave').on('click', function() {
             let form = $('#form-input')[0];
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>/api/kontak_simpan",
-                data: new FormData(form),
-                processData: false,
-                contentType: false,
-                success: function(result) {
-                    console.log(result);
-                    if (result.status == 'success') {
-                        swal("Berhasil!", "Data berhasil disimpan", "success");
-                        Server.send('message', 'notif_success');
-                    } else {
-                        swal("Error!", "Data gagal disimpan", "error");
-                        Server.send('message', 'notif_success');
+            //validasi inputan
+            if (form.nomor_hp.value == '') {
+                swal('Oops...', 'Nomor handphone tidak boleh kosong!', 'error');
+            } else if (form.provider.value == 'Silahkan pilih provider') {
+                swal('Oops...', 'Silahkan pilih provider!', 'error');
+            } else {
+                //kirim data ke server
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>/api/kontak_simpan",
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    success: function(result) {
+                        if (result.status == true) {
+                            swal("Berhasil!", result.message, "success");
+                            Server.send('message', 'notif_success');
+                        } else {
+                            swal("Error!", "Data gagal disimpan", "error");
+                            Server.send('message', 'notif_error');
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     </script>
 </body>
