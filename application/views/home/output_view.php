@@ -16,7 +16,36 @@
 </head>
 
 <body>
-    <h1>Hello, <?php echo $this->session->userdata('user_data')['full_name'] ?></h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="<?php echo base_url() ?>/home">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url() ?>/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<?php echo base_url() ?>/home/output">Output</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url() ?>/login/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="jumbotron p-4">
+        <div class="container">
+            <div class="text-center">
+                <img src="<?php echo $this->session->userdata('user_data')['profile_picture'] ?>" class="rounded-circle img-thumbnail">
+                <h3>Halo, <?php echo $this->session->userdata('user_data')['full_name'] ?></h3>
+            </div>
+        </div>
+    </div>
 
     <div class="container-fluid">
         <div class="card">
@@ -130,6 +159,7 @@
             </div>
         </div>
     </div>
+    <audio id="audio" src="<?php echo base_url() ?>public/sound/notification.wav"></audio>
 
     <script src="<?php echo base_url() ?>public/js/message.js"></script>
     <script src="<?php echo base_url() ?>public/js/jquery.min.js"></script>
@@ -142,6 +172,12 @@
     <script>
         //inisialisasi edit kontak modal
         var editKontakModal = new bootstrap.Modal(document.getElementById('editKontak'));
+
+        //notification sound
+        function play_notification() {
+            var audio = document.getElementById("audio");
+            audio.play();
+        }
 
         //script datatables
         $(document).ready(function() {
@@ -362,6 +398,7 @@
                             'expire': 5000
                         });
                         tableUpdate();
+                        play_notification();
                         break;
                     case 'notif_error':
                         dhtmlx.message({
@@ -370,6 +407,7 @@
                             'type': 'error',
                         });
                         tableUpdate();
+                        play_notification();
                         break;
                 }
             });

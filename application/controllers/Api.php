@@ -184,4 +184,40 @@ class Api extends RestController
             ], 404);
         }
     }
+
+    public function auto_get()
+    {
+        $telkom = ['0812', '0813', '0821', '0822', '0823', '0852', '0853'];
+        $xl = ['0856', '0896', '0897', '0888', '0889'];
+        $axis = ['0818', '0819', '0855', '0857', '0858', '0859'];
+        $tri = ['0838', '0839', '0831', '0832', '0833', '0834', '0835', '0836', '0837'];
+        $indosat = ['0881', '0882', '0883', '0885', '0886', '0887'];
+        $smartfren = ['0877', '0878', '0879', '0888', '0889'];
+
+        $provider = [
+            'telkom' => $telkom[array_rand($telkom)].str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT),
+            'xl' => $xl[array_rand($xl)].str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT),
+            'axis' => $axis[array_rand($axis)].str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT),
+            'tri' => $tri[array_rand($tri)].str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT),
+            'indosat' => $indosat[array_rand($indosat)].str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT),
+            'smartfren' => $smartfren[array_rand($smartfren)].str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT),
+        ];
+
+        $auto_provider = array();
+        for ($i=0; $i < 50; $i++) { 
+            $rand_keys = array_rand($provider);
+            $nomorhp = $provider[$rand_keys];
+            $object = new stdClass();
+            $object->nomor_hp = $nomorhp;
+            $object->provider = $rand_keys;
+            //masukkan object kedalam array $auto_provider
+            array_push($auto_provider, $object);
+        }
+
+        // print_r(json_encode($auto_provider));
+        $this->response([
+            'status' => true,
+            'data' => $auto_provider, 
+        ], 200);
+    }
 }

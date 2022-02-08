@@ -43,9 +43,8 @@ class Login extends CI_Controller
         } else {
             // uncomentar kode dibawah untuk melihat data session email
             // echo json_encode($this->session->userdata('access_token')); 
-            echo json_encode($this->session->userdata('user_data'));
+            // echo json_encode($this->session->userdata('user_data'));
             echo $this->session->userdata('user_data')['first_name'];
-            // echo "Login success";
             redirect('home');
         }
     }
@@ -54,6 +53,6 @@ class Login extends CI_Controller
         $this->session->unset_userdata('access_token');
 
         $this->session->unset_userdata('user_data');
-        echo "Logout berhasil";
+        redirect('login');
     }
 }
