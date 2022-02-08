@@ -23,13 +23,15 @@ class Login extends CI_Controller
                 $data = $google_service->userinfo->get();
                 $current_datetime = date('Y-m-d H:i:s');
                 $user_data = array(
-                    'first_name' => $data['given_name'],
-                    'last_name'  => $data['family_name'],
-                    'email_address' => $data['email'],
-                    'profile_picture' => $data['picture'],
+                    'full_name' => $data->name,
+                    'first_name' => $data->given_name,
+                    'last_name'  => $data->family_name,
+                    'email_address' => $data->email,
+                    'profile_picture' => $data->picture,
                     'updated_at' => $current_datetime
                 );
-                $this->session->set_userdata('user_data', $data);
+                // $this->session->set_userdata('user_data', $data);
+                $this->session->set_userdata('user_data', $user_data);
             }
         }
         $login_button = '';
@@ -41,8 +43,10 @@ class Login extends CI_Controller
         } else {
             // uncomentar kode dibawah untuk melihat data session email
             // echo json_encode($this->session->userdata('access_token')); 
-            // echo json_encode($this->session->userdata('user_data'));
-            echo "Login success";
+            echo json_encode($this->session->userdata('user_data'));
+            echo $this->session->userdata('user_data')['first_name'];
+            // echo "Login success";
+            redirect('home');
         }
     }
     public function logout()
