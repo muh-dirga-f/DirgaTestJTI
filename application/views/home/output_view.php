@@ -190,7 +190,7 @@
                     "type": "GET"
                 },
                 "order": [
-                    [1, 'asc']
+                    [3, 'asc']
                 ],
                 "columns": [{
                         "data": null,
@@ -232,7 +232,7 @@
                     "type": "GET"
                 },
                 "order": [
-                    [1, 'asc']
+                    [3, 'asc']
                 ],
                 "columns": [{
                         "data": null,
