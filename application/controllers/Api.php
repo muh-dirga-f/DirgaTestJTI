@@ -207,7 +207,7 @@ class Api extends RestController
         ];
 
         $auto_provider = array();
-        for ($i=0; $i < 50; $i++) { 
+        for ($i=0; $i < 500; $i++) { 
             $rand_keys = array_rand($provider);
             $nomorhp = $provider[$rand_keys];
             $object = new stdClass();
