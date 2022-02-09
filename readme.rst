@@ -11,11 +11,12 @@ Instalasi aplikasi
 ###################################
 1. buka phpmyadmin
 2. buat database dengan nama "dirga_test_jti"
-3. edit file /application/config/databases.php
+3. lalu import database yang ada di folder root project dengan nama file "dirga_test_jti.sql"
+4. edit file /application/config/databases.php
 	- sesuaikan konfigurasi hostname,username dan password pada komputer kalian
-4. buka terminal(untuk linux) atau cmd(untuk windows) lalu ketik "composer install"
-5. jalankan websocket cara menjalankan websocket ada di bawah
-6. apabila semua sudah dilakukan aplikasi siap digunakan
+5. buka terminal(untuk linux) atau cmd(untuk windows) lalu ketik "composer install"
+6. jalankan websocket cara menjalankan websocket ada di bawah
+7. apabila semua sudah dilakukan aplikasi siap digunakan
 
 ###################################
 Cara menjalankan Websocket Linux
