@@ -16,7 +16,7 @@ Instalasi aplikasi
 	- sesuaikan konfigurasi hostname,username dan password pada komputer kalian
 5. buka terminal(untuk linux) atau cmd(untuk windows) arahkan ke root project lalu ketik "composer install"
 6. jalankan websocket cara menjalankan websocket ada di bawah
-7. apabila semua sudah dilakukan aplikasi siap digunakan
+7. buka halaman "http://localhost/DirgaTestJTI/"
 
 ###################################
 Cara menjalankan Websocket Linux
