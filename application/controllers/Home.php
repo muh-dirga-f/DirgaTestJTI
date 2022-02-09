@@ -6,23 +6,18 @@ class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('access_token')) {
+            redirect('login');
+        }
     }
 
     public function index()
     {
-        if ($this->session->userdata('access_token')) {
-            $this->load->view('home/input_view');
-        } else {
-            redirect('login');
-        }
+        $this->load->view('home/input_view');
     }
 
     public function output()
     {
-        if ($this->session->userdata('access_token')) {
-            $this->load->view('home/output_view');
-        } else {
-            redirect('login');
-        }
+        $this->load->view('home/output_view');
     }
 }
