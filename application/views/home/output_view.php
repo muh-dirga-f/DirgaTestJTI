@@ -145,6 +145,7 @@
                                 <option disabled selected>Silahkan pilih provider</option>
                                 <option value="telkom">Telkom</option>
                                 <option value="xl">XL</option>
+                                <option value="axis">Axis</option>
                                 <option value="tri">Tri</option>
                                 <option value="indosat">Indosat</option>
                                 <option value="smartfren">Smartfren</option>
