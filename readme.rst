@@ -28,5 +28,5 @@ Cara menjalankan Websocket Linux
 Cara menjalankan Websocket Windows
 ###################################
 1. buka cmd dan arahkan ke root project
-2. kemudian ketik pada cmd "./websocket-windows.bat"
+2. kemudian ketik pada cmd "./websocket-windows.bat" atau "websocket-windows.bat"
 3. jika menemukan error : Fatal error: Call to undefined function socket_create()..... cara untuk memperbaikinya klik link `disini <https://stackoverflow.com/questions/6137823/fatal-error-call-to-undefined-function-socket-create>`_
