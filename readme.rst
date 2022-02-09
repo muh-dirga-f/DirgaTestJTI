@@ -4,6 +4,15 @@ Kebutuhan Sistem
 1. PHP 7.2 atau lebih baru 
 2. khusus untuk windows pastikan environment path untuk php sudah ada jika belum klik link `disini <https://sulhi.id/setting-path-environment-variable-di-windows-10/>`_
 
+
+###################################
+Instalasi aplikasi
+###################################
+1. buka phpmyadmin
+2. buat database dengan nama "dirga_test_jti"
+3. edit file /application/config/databases.php
+	- sesuaikan konfigurasi hostname,username dan password pada komputer kalian
+
 ###################################
 Cara menjalankan Websocket Linux
 ###################################
