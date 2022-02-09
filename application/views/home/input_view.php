@@ -91,6 +91,7 @@
                 e.preventDefault();
             }
         });
+        
         $(document).ready(function() {
             var Server;
 
@@ -136,7 +137,7 @@
                     dataType: "json",
                     success: function(response) {
                         console.log(response);
-                        const angka_random = Math.floor(Math.random() * 50);
+                        const angka_random = Math.floor(Math.random() * 500);
                         let hasil = response.data[angka_random];
                         console.log(hasil);
                         $('#nomor_hp').val(hasil.nomor_hp);
