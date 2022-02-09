@@ -10,16 +10,19 @@ class Home extends CI_Controller
 
     public function index()
     {
-        $this->load->view('home/input_view');
+        if ($this->session->userdata('access_token')) {
+            $this->load->view('home/input_view');
+        } else {
+            redirect('login');
+        }
     }
 
     public function output()
     {
-        $this->load->view('home/output_view');
-    }
-
-    public function sender()
-    {
-        $this->load->view('home/sender_view');
+        if ($this->session->userdata('access_token')) {
+            $this->load->view('home/output_view');
+        } else {
+            redirect('login');
+        }
     }
 }

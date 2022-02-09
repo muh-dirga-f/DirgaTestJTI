@@ -40,7 +40,7 @@
         <div class="container">
             <div class="text-center">
                 <img src="<?php echo $this->session->userdata('user_data')['profile_picture'] ?>" class="rounded-circle img-thumbnail">
-                <h3>Halo, <?php echo $this->session->userdata('user_data')['full_name'] ?></h3>
+                <h3>Halo, <?php echo $this->session->userdata('user_data')['first_name'] ?> <?php echo $this->session->userdata('user_data')['last_name'] ?></h3>
             </div>
         </div>
     </div>
