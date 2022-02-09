@@ -2,7 +2,7 @@
 Kebutuhan Sistem
 ###################################
 1. PHP 7.2 atau lebih baru 
-2. composer
+2. Composer `disini <https://getcomposer.org/>`_
 3. khusus untuk windows pastikan environment path untuk php sudah ada jika belum klik link `disini <https://sulhi.id/setting-path-environment-variable-di-windows-10/>`_
 
 
